@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏮 廈門旅遊規劃報告</title>
+  <style>
+    :root {
+      --primary: #c0392b;
+      --primary-dark: #922b21;
+      --accent: #e67e22;
+      --bg: #faf7f2;
+      --card: #ffffff;
+      --text: #2c3e50;
+      --muted: #7f8c8d;
+      --border: #e8ddd0;
+      --shadow: 0 4px 20px rgba(0,0,0,0.05);
+      --siming: #3498db;
+      --tongan: #27ae60;
+      --jimei: #9b59b6;
+      --errand: #e67e22;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    header p { opacity: 0.9; font-size: 1.1rem; font-weight: 300; }
+
+    .hotel-badge {
+      display: inline-block;
+      margin-top: 1.4rem;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+      border-radius: 50px;
+      padding: 0.6rem 1.8rem;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+    
+    .hotel-badge:hover {
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    section { margin-bottom: 3.5rem; }
+
+    h2 {
+      font-size: 1.6rem;
+      color: var(--primary-dark);
+      border-left: 5px solid var(--accent);
+      padding-left: 0.9rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 1.8rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .stat .num {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: var(--primary);
+      line-height: 1.2;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat .label { color: var(--muted); font-size: 0.95rem; }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      margin-right: 0.4rem;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+
+    .tag-siming { background: #ebf5fb; color: #2980b9; }
+    .tag-tongan { background: #eafaf1; color: #27ae60; }
+    .tag-jimei { background: #f5eef8; color: #8e44ad; }
+    .tag-food { background: #fef5e7; color: #e67e22; }
+    .tag-sight { background: #f4ecf7; color: #8e44ad; }
+    .tag-hotel { background: #fdedec; color: var(--primary); }
+    .tag-errand { background: #fef5e7; color: var(--errand); }
+
+    .date-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+
+    .date-table th, .date-table td {
+      padding: 0.75rem 0.9rem;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .date-table th { background: #f8f4ef; font-weight: bold; }
+
+    .route-card {
+      background: linear-gradient(135deg, #fffdf5 0%, #fff 100%);
+      border: 1px solid #f9e79f;
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin: 1.2rem 0;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 10px rgba(249, 231, 159, 0.2);
+    }
+
+    .route-card strong { color: var(--primary-dark); }
+    .route-arrow { color: var(--accent); font-weight: bold; margin: 0 0.4rem; }
+
+    .day-plan {
+      border-left: 4px solid var(--accent);
+      padding-left: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .day-plan h3 {
+      color: var(--primary-dark);
+      font-size: 1.35rem;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 1rem 0 1rem 0.5rem;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .timeline-item:last-child { border-bottom: none; }
+
+    .time {
+      font-weight: bold;
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .place-name {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .place-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 0.4rem;
+    }
+
+    .price { color: var(--primary); font-weight: bold; }
+
+    .spot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .spot-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .spot-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .spot-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .spot-card .body { padding: 1.2rem; }
+
+    .spot-card .body h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .spot-card .body p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .must-try {
+      background: #fffdf5;
+      border-left: 3px solid var(--accent);
+      padding: 0.6rem 1rem;
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .tips {
+      background: #eaf2f8;
+      border-radius: 14px;
+      padding: 1.5rem 1.8rem;
+      border: 1px solid #d4e6f1;
+    }
+
+    .tips ul { padding-left: 1.4rem; }
+    .tips li { margin-bottom: 0.5rem; }
+
+    .map-note {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem;
+      font-size: 0.95rem;
+    }
+
+    .map-note strong { color: var(--primary); }
+
+    /* Map Tabs & Switching System */
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .map-tabs {
+      display: flex;
+      background: #ebedef;
+      padding: 4px;
+      border-radius: 8px;
+    }
+
+    .map-tab-btn {
+      padding: 6px 16px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      color: var(--muted);
+    }
+
+    .map-tab-btn.active {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+
+    #trip-map {
+      width: 100%;
+      height: 520px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      z-index: 1;
+    }
+
+    .map-pane {
+      display: none;
+    }
+
+    .map-pane.active {
+      display: block;
+    }
+
+    /* SVG Map Switcher */
+    .svg-switcher {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .svg-btn {
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .svg-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .svg-container {
+      background: #faf7f2;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .svg-container svg {
+      max-width: 100%;
+      height: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .svg-pane {
+      display: none;
+    }
+
+    .svg-pane.active {
+      display: block;
+    }
+
+    .map-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.4rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    .map-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .map-legend i {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .map-link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+
+    .map-link-item {
+      display: block;
+      padding: 0.8rem 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .map-link-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .map-link-item small {
+      display: block;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    .map-link-item .gmaps-hint {
+      color: var(--siming);
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      display: inline-block;
+    }
+
+    .leaflet-popup-content {
+      font-family: inherit;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 10px 12px;
+    }
+
+    .popup-gmaps {
+      display: inline-block;
+      margin-top: 0.4rem;
+      color: var(--siming);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .popup-gmaps:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+      background: #faf7f2;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.8rem; }
+      .spot-card img { height: 160px; }
+      #trip-map { height: 380px; }
+      .container { padding: 1.5rem 1rem 3rem; }
+      h2 { font-size: 1.35rem; }
+    }
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+</head>
+<body>
+
+<header>
+  <h1>🏮 廈門旅遊規劃報告</h1>
+  <p>6/30 – 7/4 · 小三通進出 · 美食 × 古蹟 × 必辦事項</p>
+  <div class="hotel-badge">
+    🏨 住宿：厦门中山海滨酒店<br>
+    <small>思明區 · 鹭江道 52-1 号</small>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- 總覽 -->
+  <section>
+    <h2>📋 行程總覽</h2>
+    <div class="summary-grid">
+      <div class="stat"><div class="num">5</div><div class="label">天（6/30–7/4）</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">完整遊玩日</div></div>
+      <div class="stat"><div class="num">2</div><div class="label">必辦事項日</div></div>
+      <div class="stat"><div class="num">13+</div><div class="label">收藏景點</div></div>
+    </div>
+
+    <div class="card">
+      <h3>本次行程關鍵資訊</h3>
+      <table class="date-table">
+        <thead>
+          <tr><th>日期</th><th>主題</th><th>備註</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>6/30（一）</strong></td><td>小三通抵達 + 聯通取件</td><td>15:00 到港，下午辦門號與開戶文件</td></tr>
+          <tr><td><strong>7/1（二）</strong></td><td>建設銀行開戶 + 思明覓食</td><td>銀行優先，下午起逛收藏美食</td></tr>
+          <tr><td><strong>7/2（三）</strong></td><td>同安老城 Citywalk</td><td>一日遊，美食 + 古蹟</td></tr>
+          <tr><td><strong>7/3（四）</strong></td><td>集美學村</td><td>嘉庚建築、龙舟池、十里长堤</td></tr>
+          <tr><td><strong>7/4（五）</strong></td><td>小三通回程</td><td>10:00 船班，<strong>不排行程</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>住宿與區域優勢</h3>
+      <p>
+        <strong>厦门中山海滨酒店</strong>位於思明區鷺江道，緊鄰中山路步行街與輪渡碼頭，
+        步行可達八市、中山路商圈。酒店周邊交通方便，適合作為<strong>思明區美食探索</strong>的大本營。
+        同安區景點距離較遠（車程約 40–50 分鐘），建議安排<strong>專程一日遊</strong>。
+        集美學村位於島外集美區（地鐵 1 號線或打車約 25–35 分鐘），安排於 <strong>7/3</strong>。
+        小三通進出皆為<strong>五通客运码头</strong>，距酒店打車約 30–40 分鐘。
+      </p>
+    </div>
+  </section>
+
+  <!-- 地圖區塊 -->
+  <section>
+    <div class="map-header">
+      <h2>🗺️ 景點導航地圖</h2>
+      <div class="map-tabs">
+        <button class="map-tab-btn active" onclick="switchMap('online')">🗺️ 互動地圖 (需網路)</button>
+        <button class="map-tab-btn" onclick="switchMap('offline')">🎨 路線示意圖 (免網路/離線)</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <!-- 互動 Leaflet 地圖 -->
+      <div id="online-map-pane" class="map-pane active">
+        <p style="font-size:0.92rem; color:var(--muted); margin-bottom:0.8rem;">
+          點擊地圖標記或下方列表，可開啟 Google 地圖導航。
+        </p>
+        <div class="map-legend">
+          <span><i style="background:#c0392b"></i> 住宿 / 碼頭</span>
+          <span><i style="background:#e67e22"></i> 必辦事項</span>
+          <span><i style="background:#3498db"></i> 思明 · 7/1</span>
+          <span><i style="background:#27ae60"></i> 同安 · 7/2</span>
+          <span><i style="background:#9b59b6"></i> 集美 · 7/3</span>
+        </div>
+        <div id="trip-map"></div>
+      </div>
+
+      <!-- 離線 SVG 示意圖 -->
+      <div id="offline-map-pane" class="map-pane">
+        <div class="svg-switcher">
+          <button class="svg-btn active" onclick="switchSvg('all')">全區路線總覽</button>
+          <button class="svg-btn" onclick="switchSvg('siming')">思明區 (D1/D2)</button>
+          <button class="svg-btn" onclick="switchSvg('tongan')">同安老城 (D3)</button>
+          <button class="svg-btn" onclick="switchSvg('jimei')">集美學村 (D4)</button>
+        </div>
+
+        <div class="svg-container">
+          <!-- 全區總覽 SVG -->
+          <div id="svg-all" class="svg-pane active">
+            <svg viewBox="0 0 600 420" width="100%" height="auto">
+              <rect width="600" height="420" fill="#f4f9fc"/>
+              <path d="M 0 0 L 600 0 L 600 130 C 450 140, 400 100, 350 160 C 300 180, 250 140, 200 200 C 150 180, 100 220, 0 160 Z" fill="#eaf2f8" stroke="#d4e6f1" stroke-width="2"/>
+              <path d="M 120 160 C 140 160, 160 190, 150 210 C 140 230, 110 240, 90 210 Z" fill="#ebf5fb" stroke="#aed6f1" stroke-width="2"/>
+              <path d="M 160 260 C 220 220, 280 240, 320 260 C 340 280, 350 330, 310 360 C 270 385, 200 380, 160 350 C 140 330, 140 280, 160 260 Z" fill="#ffffff" stroke="#d5dbdb" stroke-width="2"/>
+              <path d="M 550 360 Q 450 290, 320 280" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,5"/>
+              <text x="400" y="305" fill="#c0392b" font-size="10" font-weight="bold">小三通航線 (金門➔五通)</text>
+              <path d="M 185 330 Q 150 270, 135 210" fill="none" stroke="#9b59b6" stroke-width="2.5" stroke-dasharray="3,3"/>
+              <text x="135" y="250" fill="#9b59b6" font-size="9" font-weight="bold" transform="rotate(-68 135 250)">地鐵 1 號線 (跨海)</text>
+              <path d="M 210 280 Q 230 180, 280 100" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4"/>
+              <text x="255" y="160" fill="#27ae60" font-size="10" font-weight="bold" transform="rotate(75 255 160)">BRT / 快速路</text>
+              <path d="M 320 280 C 285 285, 260 295, 245 305" fill="none" stroke="#e67e22" stroke-width="2" stroke-dasharray="2,2"/>
+              <path d="M 245 305 C 225 315, 200 325, 185 330" fill="none" stroke="#e67e22" stroke-width="2" stroke-dasharray="2,2"/>
+              <circle cx="320" cy="280" r="6" fill="#c0392b"/>
+              <text x="330" y="284" fill="#2c3e50" font-size="10" font-weight="bold">五通客運碼頭 (D1/D5)</text>
+              <circle cx="245" cy="305" r="5" fill="#e67e22"/>
+              <text x="255" y="309" fill="#2c3e50" font-size="9" font-weight="bold">聯通營業廳 (D1)</text>
+              <circle cx="185" cy="330" r="7" fill="#c0392b" stroke="#fff" stroke-width="1.5"/>
+              <text x="110" y="348" fill="#c0392b" font-size="10" font-weight="bold">🏨 中山海濱酒店</text>
+              <circle cx="135" cy="210" r="6" fill="#9b59b6"/>
+              <text x="145" y="214" fill="#2c3e50" font-size="10" font-weight="bold">集美學村 (D4)</text>
+              <circle cx="280" cy="100" r="6" fill="#27ae60"/>
+              <text x="292" y="104" fill="#2c3e50" font-size="10" font-weight="bold">同安老城 (D3)</text>
+            </svg>
+          </div>
+
+          <!-- 思明區 SVG -->
+          <div id="svg-siming" class="svg-pane">
+            <svg viewBox="0 0 400 220" width="100%" height="auto">
+              <rect width="400" height="220" fill="#fcfcf9"/>
+              <path d="M 0 0 L 80 0 L 80 220 L 0 220 Z" fill="#ebf5fb"/>
+              <text x="18" y="110" fill="#5dade2" font-size="10" font-weight="bold" transform="rotate(-90 18 110)">鷺江 (對岸鼓浪嶼)</text>
+              <line x1="95" y1="0" x2="95" y2="220" stroke="#d5dbdb" stroke-width="14"/>
+              <text x="100" y="30" fill="#7f8c8d" font-size="9" transform="rotate(90 100 30)">鷺江道</text>
+              <line x1="95" y1="160" x2="400" y2="160" stroke="#d5dbdb" stroke-width="12"/>
+              <text x="180" y="156" fill="#7f8c8d" font-size="9">中山路步行街</text>
+              <line x1="95" y1="70" x2="300" y2="70" stroke="#e8f8f5" stroke-width="10"/>
+              <text x="130" y="66" fill="#7f8c8d" font-size="9">開禾路 (八市)</text>
+              <g transform="translate(145, 180)">
+                <rect x="-55" y="-11" width="110" height="22" rx="4" fill="#c0392b"/>
+                <text x="0" y="4" fill="#fff" font-size="9.5" font-weight="bold" text-anchor="middle">🏨 中山海濱酒店</text>
+              </g>
+              <g transform="translate(145, 115)">
+                <rect x="-55" y="-11" width="110" height="22" rx="4" fill="#3498db"/>
+                <text x="0" y="4" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle">🏦 建設銀行鷺江支行</text>
+              </g>
+              <g transform="translate(240, 70)">
+                <rect x="-30" y="-11" width="60" height="22" rx="4" fill="#d35400"/>
+                <text x="0" y="4" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle">🐟 八市海鮮</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- 同安區 SVG -->
+          <div id="svg-tongan" class="svg-pane">
+            <svg viewBox="0 0 500 200" width="100%" height="auto">
+              <rect width="500" height="200" fill="#fdfefe"/>
+              <path d="M 0 70 Q 200 50, 250 100 T 500 80" fill="none" stroke="#aed6f1" stroke-width="8" opacity="0.6"/>
+              <text x="360" y="75" fill="#5dade2" font-size="8.5">同安東溪</text>
+              <path d="M 40 160 L 100 160 L 160 130 L 220 115 L 210 160 L 290 145 L 370 50 L 440 40" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="3,3"/>
+              <g transform="translate(40, 160)">
+                <circle cx="0" cy="0" r="10" fill="#27ae60"/>
+                <text x="0" y="3" fill="#fff" font-size="8.5" font-weight="bold" text-anchor="middle">1</text>
+                <text x="0" y="-15" fill="#2c3e50" font-size="8" font-weight="bold" text-anchor="middle">一劉湯包</text>
+              </g>
+              <g transform="translate(100, 160)">
+                <circle cx="0" cy="0" r="8" fill="#27ae60"/>
+                <text x="0" y="3" fill="#fff" font-size="7" font-weight="bold" text-anchor="middle">2</text>
+                <text x="0" y="13" fill="#2c3e50" font-size="8" font-weight="bold" text-anchor="middle">孝杰煎餅</text>
+              </g>
+              <g transform="translate(160, 130)">
+                <circle cx="0" cy="0" r="8" fill="#27ae60"/>
+                <text x="0" y="3" fill="#fff" font-size="7" font-weight="bold" text-anchor="middle">3</text>
+                <text x="0" y="-12" fill="#2c3e50" font-size="8" font-weight="bold" text-anchor="middle">縣衙舊址</text>
+              </g>
+              <g transform="translate(220, 115)">
+                <circle cx="0" cy="0" r="8" fill="#27ae60"/>
+                <text x="0" y="3" fill="#fff" font-size="7" font-weight="bold" text-anchor="middle">4</text>
+                <text x="25" y="-3" fill="#2c3e50" font-size="8" font-weight="bold">同安孔廟</text>
+              </g>
+              <g transform="translate(210, 160)">
+                <circle cx="0" cy="0" r="8" fill="#27ae60"/>
+                <text x="0" y="3" fill="#fff" font-size="7" font-weight="bold" text-anchor="middle">5</text>
+                <text x="0" y="13" fill="#2c3e50" font-size="8" font-weight="bold" text-anchor="middle">汁多鮮/如梅</text>
+              </g>
+              <g transform="translate(370, 50)">
+                <circle cx="0" cy="0" r="8" fill="#27ae60"/>
+                <text x="0" y="3" fill="#fff" font-size="7" font-weight="bold" text-anchor="middle">6</text>
+                <text x="-25" y="-3" fill="#2c3e50" font-size="8" font-weight="bold">梅山寺</text>
+              </g>
+              <g transform="translate(440, 40)">
+                <circle cx="0" cy="0" r="11" fill="#c0392b"/>
+                <text x="0" y="3" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle">7</text>
+                <text x="0" y="-15" fill="#2c3e50" font-size="8" font-weight="bold" text-anchor="middle">梵天禪寺</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- 集美區 SVG -->
+          <div id="svg-jimei" class="svg-pane">
+            <svg viewBox="0 0 450 180" width="100%" height="auto">
+              <rect width="450" height="180" fill="#fcfcf9"/>
+              <path d="M 0 120 C 150 120, 200 90, 280 130 C 320 150, 350 180, 450 180 L 0 180 Z" fill="#ebf5fb" opacity="0.8"/>
+              <text x="130" y="150" fill="#5dade2" font-size="8.5" font-weight="bold">跨海大橋海域</text>
+              <g transform="translate(60, 80)">
+                <rect x="-40" y="-10" width="80" height="20" rx="3" fill="#9b59b6"/>
+                <text x="0" y="3" fill="#fff" font-size="8.5" font-weight="bold" text-anchor="middle">🚇 集美學村站</text>
+              </g>
+              <g transform="translate(75, 130)">
+                <rect x="-40" y="-10" width="80" height="20" rx="3" fill="#2980b9"/>
+                <text x="0" y="3" fill="#fff" font-size="8.5" font-weight="bold" text-anchor="middle">🌅 十里長堤</text>
+              </g>
+              <path d="M 60 90 L 75 120" stroke="#7f8c8d" stroke-width="1.5" stroke-dasharray="2,2"/>
+              <g transform="translate(190, 50)">
+                <rect x="-40" y="-10" width="80" height="20" rx="3" fill="#9b59b6"/>
+                <text x="0" y="3" fill="#fff" font-size="8.5" font-weight="bold" text-anchor="middle">🏫 集美學村</text>
+              </g>
+              <path d="M 100 80 L 150 50" stroke="#7f8c8d" stroke-width="1.5" stroke-dasharray="2,2"/>
+              <g transform="translate(270, 90)">
+                <ellipse cx="0" cy="0" rx="30" ry="14" fill="#d4e6f1" stroke="#3498db" stroke-width="1.5"/>
+                <text x="0" y="3" fill="#2980b9" font-size="8.5" font-weight="bold" text-anchor="middle">龍舟池</text>
+              </g>
+              <path d="M 190 60 L 250 82" stroke="#7f8c8d" stroke-width="1.5" stroke-dasharray="2,2"/>
+              <g transform="translate(370, 60)">
+                <rect x="-30" y="-10" width="60" height="20" rx="3" fill="#27ae60"/>
+                <text x="0" y="3" fill="#fff" font-size="8.5" font-weight="bold" text-anchor="middle">🌳 鰲園</text>
+              </g>
+              <path d="M 230 50 L 340 60" stroke="#7f8c8d" stroke-width="1.5" stroke-dasharray="2,2"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- 地圖導航連結 -->
+      <div class="map-link-grid" id="map-link-grid"></div>
+    </div>
+  </section>
+
+  <!-- 區域景點快速分類 -->
+  <section>
+    <h2>🗺️ 景點區域分類</h2>
+    <div class="card">
+      <h3><span class="tag tag-siming">思明區</span> 酒店周邊 · 步行 / 短程交通</h3>
+      <ul style="padding-left:1.2rem; margin-top:0.5rem;">
+        <li>嗨小鲜 — 海鮮燒烤</li>
+        <li>鑫朝刘汤包 — 湯包 + 酸筍湯</li>
+        <li>华昌肠粉 — 居民樓下腸粉（湖里區鄰近）</li>
+        <li>中山路步行街 / 八市商圈</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="tag tag-tongan">同安區</span> 老城 Citywalk · 建議一日遊</h3>
+      <ul style="padding-left:1.2rem; margin-top:0.5rem;">
+        <li>一刘汤包 — 同安老城必吃</li>
+        <li>孝杰煎饼 — 肉煎餅</li>
+        <li>汁多鲜 — 大湯包、麵食</li>
+        <li>如梅小吃 / 肥栋煎糕点 — 炸串、滿煎糕</li>
+        <li>县衙旧址（市民公园）— 同安大字牆、文库咖啡</li>
+        <li>同安孔庙 — 廈門唯一孔廟</li>
+        <li>梅山寺 — 梅山勝境</li>
+        <li>梵天禅寺 — 千年古剎</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="tag tag-jimei">集美區</span> 集美学村 · 7/3 一日遊</h3>
+      <ul style="padding-left:1.2rem; margin-top:0.5rem;">
+        <li>集美学村 & 龙舟池 — 嘉庚建築群</li>
+        <li>嘉庚公园 / 鳌园 — 陈嘉庚纪念館</li>
+        <li>十里长堤 — 海邊日落（傍晚精華）</li>
+        <li>锦上添花好月圆社区牛肉店 — 牛三寶米粉</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 行程明細 -->
+  <section>
+    <h2>📅 建議行程安排（6/30 – 7/4）</h2>
+
+    <div class="day-plan">
+      <h3>6/30（一）｜小三通抵達 · 聯通取件 · 入住</h3>
+      <div class="route-card">
+        <strong>推薦動線（最順、不繞路）：</strong><br>
+        五通客运码头 <span class="route-arrow">→</span> 中國聯通（拿門號＋開戶文件）<span class="route-arrow">→</span> 酒店 check-in <span class="route-arrow">→</span> 中山路晚餐
+      </div>
+      <p style="color:var(--muted); font-size:0.92rem; margin-bottom:1rem;">
+        15:00 到港後時間緊，建議<strong>出關後直接打車去聯通</strong>，不要先回酒店。聯通營業時間多為 9:00–18:00，建議抵達前致電 <strong>10010</strong> 確認當日是否營業。
+      </p>
+      <div class="timeline-item">
+        <div class="time">15:00</div>
+        <div class="place-name">五通客运码头 · 小三通抵達</div>
+        <div class="place-desc">
+          <span class="tag tag-errand">交通</span>
+          廈門側小三通碼頭。出關後至 <strong>5 號門</strong> 搭計程車。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">15:30 – 16:30</div>
+        <div class="place-name">打車前往中國聯通營業廳</div>
+        <div class="place-desc">
+          <span class="tag tag-errand">交通</span>
+          五通碼頭 → 聯通軟件園二期，車程約 <strong>35–45 分鐘</strong>，費用約 ¥60–90。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">16:30 – 17:30</div>
+        <div class="place-name">中國聯通 · 軟件園二期營業廳</div>
+        <div class="place-desc">
+          <span class="tag tag-errand">必辦</span>
+          領取申請的<strong>大陸門號（SIM 卡）</strong>及<strong>隔天建設銀行開戶所需文件</strong>。<br>
+          地址：思明區軟件園二期望海路 57 号樓之二<br>
+          <span class="must-try">提醒：當場確認 SIM 可正常使用、開戶文件齊全，並確認隔日開戶還需攜帶台胞證及護照。</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">17:30 – 18:15</div>
+        <div class="place-name">打車前往酒店 · 辦理入住</div>
+        <div class="place-desc">
+          <span class="tag tag-hotel">住宿</span>
+          聯通 → 厦门中山海滨酒店（鹭江道 52-1），車程約 <strong>15–20 分鐘</strong>。放行李、稍作休息。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">18:30 – 20:30</div>
+        <div class="place-name">中山路步行街 / 八市 · 簡單晚餐</div>
+        <div class="place-desc">
+          <span class="tag tag-sight">逛街</span>
+          酒店步行約 10 分鐘。第一天先在附近吃頓飯、熟悉環境即可。
+        </div>
+      </div>
+    </div>
+
+    <div class="day-plan">
+      <h3>7/1（二）｜建設銀行開戶 · 思明區覓食</h3>
+      <p style="color:var(--muted); font-size:0.92rem; margin-bottom:1rem;">
+        銀行對公／台胞開戶通常 <strong>9:00–17:00</strong>，建議<strong>一開門就去</strong>。酒店旁鹭江道就有建設銀行，步行可達。
+      </p>
+      <div class="timeline-item">
+        <div class="time">08:30 – 09:00</div>
+        <div class="place-name">步行至建設銀行</div>
+        <div class="place-desc">
+          <span class="tag tag-errand">必辦</span>
+          推薦：<strong>中国建设银行厦门鹭江支行</strong>（鹭江道 98 号，距酒店步行約 5 分鐘）。<br>
+          攜帶：台胞證、護照、聯通領取的開戶文件、大陸門號（已激活）。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">09:00 – 11:30</div>
+        <div class="place-name">建设银行开户</div>
+        <div class="place-desc">
+          <span class="tag tag-errand">必辦</span>
+          開戶流程約 1–2 小時，辦理完成後可回酒店放置貴重資料。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">11:30 – 13:00</div>
+        <div class="place-name">鑫朝刘汤包</div>
+        <div class="place-desc">
+          <span class="tag tag-food">午餐</span>
+          開戶完成後的第一餐。<br>
+          <span class="must-try">必點：招牌湯包 <span class="price">¥13/籠</span> + 酸筍湯</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">14:00 – 15:30</div>
+        <div class="place-name">华昌肠粉</div>
+        <div class="place-desc">
+          <span class="tag tag-food">下午茶</span>
+          打車約 15 分鐘。粉皮很糯、醬汁濃郁，可加蝦、豬肝等配料。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">18:30 – 21:00</div>
+        <div class="place-name">嗨小鲜</div>
+        <div class="place-desc">
+          <span class="tag tag-food">晚餐</span>
+          廈門老饕認證的燒烤海鮮。<br>
+          <span class="must-try">必點：烤沙虫、烤皮皮虾、烤鳗鱼、膏蟹、炒泡面</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-plan">
+      <h3>7/2（三）｜同安區 · 老城 Citywalk 一日遊</h3>
+      <p style="color:var(--muted); font-size:0.92rem; margin-bottom:1rem;">
+        從酒店出發，建議打車或包車前往同安（車程約 40–50 分鐘），也可搭乘 BRT 快 2 線至同安。
+      </p>
+      <div class="timeline-item">
+        <div class="time">08:00 – 09:00</div>
+        <div class="place-name">一刘汤包</div>
+        <div class="place-desc">
+          <span class="tag tag-food">早餐</span>
+          同安老城區代表老店，BRT 第三醫院站下步行約 700 米。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">09:15 – 09:45</div>
+        <div class="place-name">孝杰煎饼</div>
+        <div class="place-desc">
+          <span class="tag tag-food">點心</span>
+          <span class="must-try">加蛋 <span class="price">¥7.5</span> / 不加蛋 <span class="price">¥6</span></span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">10:00 – 11:30</div>
+        <div class="place-name">县衙旧址（市民公园）</div>
+        <div class="place-desc">
+          <span class="tag tag-sight">古蹟</span>
+          參觀同安大字牆、文庫咖啡、復古收音機主題空間。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">11:30 – 12:30</div>
+        <div class="place-name">同安孔庙</div>
+        <div class="place-desc">
+          <span class="tag tag-sight">古蹟</span>
+          廈門地區<strong>唯一一座孔廟</strong>。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">12:30 – 14:00</div>
+        <div class="place-name">汁多鲜</div>
+        <div class="place-desc">
+          <span class="tag tag-food">午餐</span>
+          美味大湯包、特色麵食、肉丸湯。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">15:30 – 17:00</div>
+        <div class="place-name">梅山寺</div>
+        <div class="place-desc">
+          <span class="tag tag-sight">寺廟</span>
+          賞「梅山勝境」、精緻石牌坊與高聳寶塔。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">17:00 – 18:30</div>
+        <div class="place-name">梵天禅寺</div>
+        <div class="place-desc">
+          <span class="tag tag-sight">寺廟</span>
+          同安<strong>千年古剎</strong>，環境幽靜，適合傍晚參訪。
+        </div>
+      </div>
+    </div>
+
+    <div class="day-plan">
+      <h3>7/3（四）｜集美區 · 集美学村一日遊</h3>
+      <p style="color:var(--muted); font-size:0.92rem; margin-bottom:1rem;">
+        交通：地鐵 1 號線「集美学村站」（酒店步行至鎮海路站換乘，約 40 分鐘），或打車約 25–35 分鐘。
+      </p>
+      <div class="timeline-item">
+        <div class="time">09:00 – 10:30</div>
+        <div class="place-name">集美学村 & 龙舟池</div>
+        <div class="place-desc">
+          <span class="tag tag-sight">景點</span>
+          嘉庚建築群、集美中學、南薰樓，紅磚燕尾脊非常上鏡。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">10:30 – 12:30</div>
+        <div class="place-name">嘉庚公园 / 鳌园 / 陈嘉庚纪念馆</div>
+        <div class="place-desc">
+          <span class="tag tag-sight">古蹟</span>
+          入內需攜帶證件。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">12:30 – 14:00</div>
+        <div class="place-name">石鼓路午餐 · 錦上添花好月圓</div>
+        <div class="place-desc">
+          <span class="tag tag-food">午餐</span>
+          享用集美區在地著名的<strong>锦上添花好月圆</strong>牛三寶米粉 <span class="price">¥18</span>。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">16:30 – 18:30</div>
+        <div class="place-name">十里长堤 · 看日落</div>
+        <div class="place-desc">
+          <span class="tag tag-sight">日落</span>
+          集美學村站旁，可遠眺廈門大橋與夕陽下的「海上列車」。
+        </div>
+      </div>
+    </div>
+
+    <div class="day-plan">
+      <h3>7/4（五）｜小三通回程 · 不排行程</h3>
+      <div class="route-card">
+        <strong>推薦動線：</strong>
+        酒店 <span class="route-arrow">→</span> 五通客运码头 <span class="route-arrow">→</span> 小三通回台
+      </div>
+      <div class="timeline-item">
+        <div class="time">07:00 – 07:30</div>
+        <div class="place-name">酒店出發</div>
+        <div class="place-desc">
+          <span class="tag tag-errand">交通</span>
+          建議 <strong>07:30 前</strong>離開酒店。辦理退房，檢查證件。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">07:30 – 08:20</div>
+        <div class="place-name">打車至五通客运码头</div>
+        <div class="place-desc">
+          <span class="tag tag-errand">交通</span>
+          早高峰車程約 <strong>35–45 分鐘</strong>，費用約 ¥70–100。建議<strong>提前一晚預約計程車</strong>。
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">08:20 – 10:00</div>
+        <div class="place-name">五通码头 · 報到候船</div>
+        <div class="place-desc">
+          <span class="tag tag-errand">回程</span>
+          10:00 船班，建議 <strong>08:30 前抵達</strong>辦理報到與託運。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 美食清單 -->
+  <section>
+    <h2>🍜 必吃美食清單</h2>
+    <div class="card">
+      <table class="date-table">
+        <thead>
+          <tr style="background:#f8f4ef; text-align:left;">
+            <th>餐廳</th>
+            <th>區域</th>
+            <th>必點</th>
+            <th>參考價</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>嗨小鲜</strong></td><td>思明區</td><td>烤沙虫、烤皮皮虾、烤鳗鱼、膏蟹</td><td>時價</td></tr>
+          <tr><td><strong>鑫朝刘汤包</strong></td><td>思明區</td><td>招牌湯包 + 酸筍湯</td><td>¥13/籠</td></tr>
+          <tr><td><strong>锦上添花好月圆</strong></td><td>集美區</td><td>牛三寶米粉、牛腩飯</td><td>¥18/大碗</td></tr>
+          <tr><td><strong>华昌肠粉</strong></td><td>思明區</td><td>腸粉（加蝦/豬肝/香腸）</td><td>—</td></tr>
+          <tr><td><strong>一刘汤包</strong></td><td>同安區</td><td>招牌湯包</td><td>—</td></tr>
+          <tr><td><strong>孝杰煎饼</strong></td><td>同安區</td><td>肉煎餅（加蛋）</td><td>¥7.5</td></tr>
+          <tr><td><strong>汁多鲜</strong></td><td>同安區</td><td>大湯包、麵食、肉丸湯</td><td>—</td></tr>
+          <tr><td><strong>如梅小吃</strong></td><td>同安區</td><td>炸串、滿煎糕</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 收藏照片 -->
+  <section>
+    <h2>📸 收藏景點與美食照片</h2>
+    <div class="spot-grid">
+      <div class="spot-card">
+        <img src="F8BFEA9A-1F52-44DE-AF5E-7DEA2B4BD302.png" alt="嗨小鲜">
+        <div class="body">
+          <h4>嗨小鲜 <span class="tag tag-siming">思明</span></h4>
+          <p>烤沙虫、烤皮皮虾、烤鳗鱼，美味的海鮮燒烤。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="S__28860420_0.jpg" alt="嗨小鲜">
+        <div class="body">
+          <h4>嗨小鲜 · 更多推薦 <span class="tag tag-siming">思明</span></h4>
+          <p>膏蟹、炒泡面也是必點，鍋氣十足。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="S__28860421_0.jpg" alt="鑫朝刘汤包">
+        <div class="body">
+          <h4>鑫朝刘汤包 <span class="tag tag-siming">思明</span></h4>
+          <p>招牌湯包 ¥13/籠，皮薄湯多，配酸筍湯解膩。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="S__28860422_0.jpg" alt="锦上添花好月圆">
+        <div class="body">
+          <h4>锦上添花好月圆 <span class="tag tag-jimei">集美</span></h4>
+          <p>社區牛肉店，牛三寶米粉 ¥18/大碗，常需排隊。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="D482235F-65D9-4FBE-ABA0-2498FF99D1ED.png" alt="华昌肠粉">
+        <div class="body">
+          <h4>华昌肠粉 <span class="tag tag-siming">思明</span></h4>
+          <p>居民樓下腸粉，粉皮糯、醬汁濃，可加多種配料。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="S__29032451.jpg" alt="一刘汤包">
+        <div class="body">
+          <h4>一刘汤包 <span class="tag tag-tongan">同安</span></h4>
+          <p>同安老城區代表老店，大皮薄湯足，值得反覆造訪。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="S__29032457_0.jpg" alt="孝杰煎饼">
+        <div class="body">
+          <h4>孝杰煎饼 <span class="tag tag-tongan">同安</span></h4>
+          <p>肉煎餅加蛋 ¥7.5，趁熱吃超香。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="070E91E0-FD2A-4A1F-8BBD-2F792BD536A8.png" alt="孝杰煎饼">
+        <div class="body">
+          <h4>孝杰煎饼 · 特寫 <span class="tag tag-tongan">同安</span></h4>
+          <p>純肉+雞蛋，厚實飽足，可配肉串一起。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="0EA527AB-9AA1-458F-BD4A-870E67596109.png" alt="汁多鲜">
+        <div class="body">
+          <h4>汁多鲜 <span class="tag tag-tongan">同安</span></h4>
+          <p>大湯包、麵食、肉丸湯，同安在地名店。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="S__29032454_0.jpg" alt="县衙旧址">
+        <div class="body">
+          <h4>县衙旧址 <span class="tag tag-tongan">同安</span></h4>
+          <p>同安大字牆、文库咖啡，老城 Citywalk 必訪。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="ACE5A66F-C6EC-4802-93A2-0B6DFB3D4E62.png" alt="县衙旧址">
+        <div class="body">
+          <h4>县衙旧址 · 園內 <span class="tag tag-tongan">同安</span></h4>
+          <p>珠光青瓷展、復古收音機主題空間。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="2E897BA1-5F02-4EA6-974F-ED5FE489C847.png" alt="同安孔庙">
+        <div class="body">
+          <h4>同安孔庙 <span class="tag tag-tongan">同安</span></h4>
+          <p>廈門地區唯一孔廟，紅牆綠樹，古樸靜謐。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="S__29032455_0.jpg" alt="梅山寺">
+        <div class="body">
+          <h4>梅山寺 <span class="tag tag-tongan">同安</span></h4>
+          <p>梅山勝境，精緻石牌坊與巍峨寶塔。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="S__29032456_0.jpg" alt="梵天禅寺">
+        <div class="body">
+          <h4>梵天禅寺 <span class="tag tag-tongan">同安</span></h4>
+          <p>千年古剎，黃瓦紅牆，建築恢宏。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="0BC12A49-5476-4DA8-90D0-DAD01CF2A354.png" alt="梵天禅寺">
+        <div class="body">
+          <h4>梵天禅寺 · 寶塔 <span class="tag tag-tongan">同安</span></h4>
+          <p>五層寶塔、紅燈籠長廊，同安最出名寺廟。</p>
+        </div>
+      </div>
+      <div class="spot-card">
+        <img src="C7EC6170-8F7C-4D94-A394-887C13C7F9B4.png" alt="如梅小吃">
+        <div class="body">
+          <h4>如梅小吃 <span class="tag tag-tongan">同安</span></h4>
+          <p>同安老城炸串、煎糕點，滿溢古早煙火氣。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 實用提醒 -->
+  <section>
+    <h2>💡 實用提醒</h2>
+    <div class="tips">
+      <ul>
+        <li><strong>6/30 動線關鍵：</strong>出關後<strong>直奔聯通</strong>，不要先 check-in。聯通通常 18:00 前營業結束。</li>
+        <li><strong>7/1 銀行開戶：</strong>酒店旁鷺江道 98 號建行鷺江支行（步行 5 分鐘）。攜帶台胞證、護照、聯通文件。</li>
+        <li><strong>7/4 回程預約：</strong>10:00 船班，建議 <strong>07:30 前離開酒店</strong>，前一晚先請酒店協助預約計程車。</li>
+        <li><strong>同安老城交通：</strong>單程打車約 40-50 分鐘，費用 ¥80-120，避開晚高峰回程。</li>
+        <li><strong>行動支付：</strong>辦完大陸門號與開卡後，第一時間綁定微信/支付寶最為便利。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>🏨 住宿詳細資訊</h2>
+    <div class="map-note">
+      <strong>厦门中山海滨酒店</strong><br>
+      地址：福建省廈門市思明區鷺江道 52-1 號<br>
+      優勢：海濱位置、近中山路步行街、輪渡碼頭、八市，美食大本營。<br>
+      交通：往五通碼頭約 30-40 分鐘，往廈門北站約 30-40 分鐘。
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  廈門旅遊規劃報告 · 2026 行程小助手
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+  // 地圖切換 Tab 邏輯
+  function switchMap(type) {
+    document.querySelectorAll('.map-tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.map-pane').forEach(pane => pane.classList.remove('active'));
+    
+    if (type === 'online') {
+      event.target.classList.add('active');
+      document.getElementById('online-map-pane').classList.add('active');
+      // 重新計算 Leaflet 大小以防渲染異常
+      setTimeout(() => { map.invalidateSize(); }, 100);
+    } else {
+      document.querySelectorAll('.map-tab-btn')[1].classList.add('active');
+      document.getElementById('offline-map-pane').classList.add('active');
+    }
+  }
+
+  // SVG 離線地圖切換邏輯
+  function switchSvg(area) {
+    document.querySelectorAll('.svg-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.svg-pane').forEach(pane => pane.classList.remove('active'));
+    
+    event.target.classList.add('active');
+    document.getElementById('svg-' + area).classList.add('active');
+  }
+
+  // 地圖標記點定義
+  const places = [
+    {
+      id: 'wutong',
+      nameTw: '五通客運碼頭（小三通）',
+      lat: 24.5352, lng: 118.1880,
+      area: 'hotel', day: '630',
+      address: '厦门市湖里区环岛东路2498号',
+      query: '厦门五通客运码头'
+    },
+    {
+      id: 'unicom',
+      nameTw: '中國聯通 · 軟件園二期營業廳',
+      lat: 24.4315, lng: 118.1075,
+      area: 'errand', day: '630',
+      address: '厦门市思明区软件园二期望海路57号楼之二',
+      query: '中国联通营业厅 软件园二期 望海路57号 厦门'
+    },
+    {
+      id: 'hotel',
+      nameTw: '廈門中山海濱酒店（住宿）',
+      lat: 24.4483, lng: 118.0774,
+      area: 'hotel', day: '630',
+      address: '福建省厦门市思明区鹭江道52-1号',
+      query: '厦门中山海滨酒店 鹭江道52-1号'
+    },
+    {
+      id: 'ccb',
+      nameTw: '建設銀行 · 鹭江支行（開戶）',
+      lat: 24.4490, lng: 118.0782,
+      area: 'errand', day: '701',
+      address: '厦门市思明区鹭江道98号',
+      query: '中国建设银行 鹭江支行 厦门'
+    },
+    {
+      id: 'changfen',
+      nameTw: '华昌肠粉',
+      lat: 24.5125, lng: 118.1185,
+      area: 'siming', day: '701',
+      address: '厦门市湖里区华昌路125号',
+      query: '华昌肠粉 厦门 华昌路'
+    },
+    {
+      id: 'zhongshan',
+      nameTw: '中山路步行街 / 八市',
+      lat: 24.4545, lng: 118.0825,
+      area: 'siming', day: '630',
+      address: '厦门市思明区中山路',
+      query: '厦门中山路步行街'
+    },
+    {
+      id: 'niurou',
+      nameTw: '錦上添花好月圓社區牛肉店',
+      lat: 24.5768, lng: 118.0975,
+      area: 'jimei', day: '703',
+      address: '厦门市集美区兑英一里189号',
+      query: '锦上添花好月圆社区牛肉店 厦门'
+    },
+    {
+      id: 'tangbao',
+      nameTw: '鑫朝刘汤包',
+      lat: 24.4878, lng: 118.1198,
+      area: 'siming', day: '701',
+      address: '厦门市思明区莲岳路17号',
+      query: '鑫朝刘汤包 莲岳路 厦门'
+    },
+    {
+      id: 'haixiaoxian',
+      nameTw: '嗨小鲜（海鮮燒烤）',
+      lat: 24.4895, lng: 118.1210,
+      area: 'siming', day: '701',
+      address: '厦门市思明区嘉禾路312号',
+      query: '嗨小鲜 海鲜烧烤 厦门'
+    },
+    {
+      id: 'yiliu',
+      nameTw: '一刘汤包',
+      lat: 24.7020, lng: 118.1450,
+      area: 'tongan', day: '702',
+      address: '厦门市同安区阳厝二路',
+      query: '一刘汤包 同安 阳厝二路'
+    },
+    {
+      id: 'jianbing',
+      nameTw: '孝杰煎饼',
+      lat: 24.7340, lng: 118.1505,
+      area: 'tongan', day: '702',
+      address: '厦门市同安区古庄路古庄大社里21-101号',
+      query: '孝杰煎饼 同安'
+    },
+    {
+      id: 'xianya',
+      nameTw: '縣衙舊址（市民公園）',
+      lat: 24.7378, lng: 118.1520,
+      area: 'tongan', day: '702',
+      address: '厦门市同安区县口路与三秀路交汇处',
+      query: '同安县衙旧址 市民公园'
+    },
+    {
+      id: 'kongmiao',
+      nameTw: '同安孔廟',
+      lat: 24.7365, lng: 118.1538,
+      area: 'tongan', day: '702',
+      address: '厦门市同安区三秀路216号',
+      query: '同安孔庙 三秀路216号'
+    },
+    {
+      id: 'zhiduoxian',
+      nameTw: '汁多鲜',
+      lat: 24.7370, lng: 118.1515,
+      area: 'tongan', day: '702',
+      address: '厦门市同安区南门路附近',
+      query: '汁多鲜 同安 汤包'
+    },
+    {
+      id: 'rumei',
+      nameTw: '如梅小吃',
+      lat: 24.7360, lng: 118.1510,
+      area: 'tongan', day: '702',
+      address: '厦门市同安区南门路177号',
+      query: '如梅小吃 同安 南门路'
+    },
+    {
+      id: 'feidong',
+      nameTw: '肥栋满煎糕',
+      lat: 24.7355, lng: 118.1505,
+      area: 'tongan', day: '702',
+      address: '厦门市同安区铺前里83号',
+      query: '肥栋满煎糕 同安 铺前里'
+    },
+    {
+      id: 'meishan',
+      nameTw: '梅山寺',
+      lat: 24.7415, lng: 118.1575,
+      area: 'tongan', day: '702',
+      address: '厦门市同安区大同街道梅山西麓',
+      query: '梅山寺 同安'
+    },
+    {
+      id: 'fantian',
+      nameTw: '梵天禅寺',
+      lat: 24.7486, lng: 118.1618,
+      area: 'tongan', day: '702',
+      address: '厦门市同安区轮山路99号',
+      query: '梵天禅寺 同安 轮山路99号'
+    },
+    {
+      id: 'jimei',
+      nameTw: '集美學村',
+      lat: 24.5692, lng: 118.0880,
+      area: 'jimei', day: '703',
+      address: '厦门市集美区银江路与鳌园路交叉口',
+      query: '集美学村 厦门'
+    },
+    {
+      id: 'longzhou',
+      nameTw: '龍舟池',
+      lat: 24.5710, lng: 118.0910,
+      area: 'jimei', day: '703',
+      address: '厦门市集美区石鼓路78号',
+      query: '龙舟池 集美学村'
+    },
+    {
+      id: 'jiageng',
+      nameTw: '嘉庚公園 / 鰲園',
+      lat: 24.5680, lng: 118.0865,
+      area: 'jimei', day: '703',
+      address: '厦门市集美区鳌园路24号',
+      query: '嘉庚公园 鳌园 厦门'
+    },
+    {
+      id: 'changdi',
+      nameTw: '十里長堤',
+      lat: 24.5655, lng: 118.0840,
+      area: 'jimei', day: '703',
+      address: '厦门市集美区集美学村地铁站旁',
+      query: '十里长堤 集美学村'
+    }
+  ];
+
+  const areaColors = {
+    hotel: '#c0392b',
+    errand: '#e67e22',
+    siming: '#3498db',
+    tongan: '#27ae60',
+    jimei: '#9b59b6'
+  };
+
+  const dayLabels = {
+    '630': '6/30 抵達+聯通',
+    '701': '7/1 開戶+思明',
+    '702': '7/2 同安',
+    '703': '7/3 集美',
+    '704': '7/4 回程'
+  };
+
+  function gmapsUrl(place) {
+    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(place.query);
+  }
+
+  // 初始化 Leaflet 地圖
+  const map = L.map('trip-map', { scrollWheelZoom: false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+  const bounds = [];
+  const linkGrid = document.getElementById('map-link-grid');
+
+  places.forEach(function (place) {
+    const color = areaColors[place.area];
+    const icon = L.divIcon({
+      className: 'custom-marker',
+      html: '<div style="background:' + color + ';width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.4);"></div>',
+      iconSize: [14, 14],
+      iconAnchor: [7, 7]
+    });
+
+    const marker = L.marker([place.lat, place.lng], { icon: icon }).addTo(map);
+    bounds.push([place.lat, place.lng]);
+
+    const popupHtml =
+      '<strong>' + place.nameTw + '</strong><br>' +
+      '<span style="color:#7f8c8d;font-size:0.85em;">' + place.address + '</span><br>' +
+      '<span style="font-size:0.82em;">' + dayLabels[place.day] + '</span><br>' +
+      '<a class="popup-gmaps" href="' + gmapsUrl(place) + '" target="_blank" rel="noopener">📍 在 Google 地圖開啟</a>';
+
+    marker.bindPopup(popupHtml);
+    marker.on('click', function () { marker.openPopup(); });
+
+    const link = document.createElement('a');
+    link.className = 'map-link-item';
+    link.href = gmapsUrl(place);
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.innerHTML =
+      '<strong>' + place.nameTw + '</strong>' +
+      '<small>' + place.address + ' · ' + dayLabels[place.day] + '</small>' +
+      '<span class="gmaps-hint">→ 開啟 Google 地圖</span>';
+    linkGrid.appendChild(link);
+  });
+
+  map.fitBounds(bounds, { padding: [40, 40] });
+
+  if (window.innerWidth > 768) {
+    map.on('focus', function () { map.scrollWheelZoom.enable(); });
+    map.on('blur', function () { map.scrollWheelZoom.disable(); });
+  }
+</script>
+
+</body>
+</html>
